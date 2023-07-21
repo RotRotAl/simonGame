@@ -1,17 +1,15 @@
 var buttonColours=["red", "blue", "green", "yellow"];
 var gamePattern=[];
-var userPattern=[];
+var userClickedPattern=[];
 var userChosenColour;
 var lvl=-1;
+var i;
 $(".base-btn").css("height",$(".base-btn").css("width"));
 function nextSequence(){
-    lvl++;
-    userClickedPattern=[];
-    gamePattern=[];
-    $("h1").text("Level "+lvl);
-    for(var i=0;i<lvl;){
-        setTimeout(
-            function(){
+   
+    
+   
+        
                 var randomNumber=Math.random();
                 randomNumber*=4;
                 randomNumber=Math.floor(randomNumber);
@@ -19,20 +17,15 @@ function nextSequence(){
                 gamePattern.push(randomChosenColour);
                 $("#"+randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 playSound(randomChosenColour);
-                i++
-                },1000);
-        
-       
-       
-    }
-    
+            
 }
 function userHandler(event){
+    
     var userChosenColour=event.target.id; 
    playSound(userChosenColour);
    animatePress(userChosenColour);
-   userPattern.push(userChosenColour);
-   if(userPattern.length>=gamePattern.length){
+   userClickedPattern.push(userChosenColour);
+   if(userClickedPattern.length>=gamePattern.length){
     checkAnswer();
    }
   
@@ -51,17 +44,29 @@ setTimeout(
 $(".base-btn").click(userHandler);
 $(document).on("keypress",function(){
 if(lvl=-1){
-    lvl=0;
+    lvl=1;
+    $("h1").text("Level 1");
    
     nextSequence();
 }
 });
 function checkAnswer(){
-    console.log(JSON.stringify(gamePattern) === JSON.stringify(userPattern));
-    console.log(JSON.stringify(gamePattern));
-    console.log(JSON.stringify(userPattern));
-    if(JSON.stringify(gamePattern) === JSON.stringify(userPattern)){
+    console.log(JSON.stringify(userClickedPattern) === JSON.stringify(userClickedPattern));
+    console.log(JSON.stringify(userClickedPattern));
+    console.log(JSON.stringify(userClickedPattern));
+    if(JSON.stringify(gamePattern) === JSON.stringify(userClickedPattern)){
+        lvl++;
+        userClickedPattern=[];
+        gamePattern=[];
         nextSequence();
+        $("h1").text("Level "+lvl);
+       
+       setTimeout(
+        function(){
+            myLoop(lvl-1,nextSequence,100);
+            },2000);
+       
+        
         }
         else
         {
@@ -70,9 +75,20 @@ function checkAnswer(){
         }
     
 }
+function myLoop(max,func,interval)
+{
+    setTimeout(
+       func,interval);
+    if(i<max)
+    {
+        i++;
+        myLoop;
+    }
+}
 function wrong()
 {
-    lvl=0;
+    lvl=1;
+    $("h1").text("Level 1");
     nextSequence();
     playSound("wrong");
     
