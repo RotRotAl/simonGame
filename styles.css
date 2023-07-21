@@ -24,16 +24,11 @@ body {
 
 }
 .base-btn {
-  margin: 20px;
+ 
   display: inline-block;
   height: 33vh;
   border: 10px solid #FFD3A3;
   border-radius: 20%;
-}
-
-.game-over {
-  background-color: red;
-  opacity: 0.8;
 }
 
 .red {

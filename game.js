@@ -9,19 +9,28 @@ function nextSequence(){
    
     if(gamePattern.length<1)
     {
-        sleep(600);
+        sleep(31);
     }
    
-       
+    sleep(30+gamePattern*22);
                 var randomNumber=Math.random();
                 randomNumber*=4;
                 randomNumber=Math.floor(randomNumber);
                 var randomChosenColour=buttonColours[randomNumber];
-                playSound(randomChosenColour);
-                $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
+                setTimeout(
+                    function(){
+                        playSound(randomChosenColour);
+               
+                        },250);
+                        setTimeout(
+                            function(){
+                                $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
+                       
+                                },250);
+                     
                 gamePattern.push(randomChosenColour);
                 
-                sleep(200);
+                
     
         
    
@@ -41,6 +50,7 @@ function userHandler(event){
 function playSound(name){
     var audio=new Audio("./sounds/"+name+".mp3");
     audio.play();
+    sleep(25);
 }
 function animatePress(currentColour){
 $("#"+currentColour).addClass("pressed");
