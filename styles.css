@@ -10,6 +10,13 @@ body {
   color: #dffdc5;
 }
 
+#start {
+  font-family: 'Lilita One', cursive;
+  
+  color: #dffdc5;
+  background-color: #4a5d3a;
+}
+
 .container {
   display: block;
   width: 50%;

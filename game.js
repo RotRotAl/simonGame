@@ -7,16 +7,24 @@ var i;
 $(".base-btn").css("height",$(".base-btn").css("width"));
 function nextSequence(){
    
-    
+    if(gamePattern.length<1)
+    {
+        sleep(600);
+    }
    
-        
+       
                 var randomNumber=Math.random();
                 randomNumber*=4;
                 randomNumber=Math.floor(randomNumber);
                 var randomChosenColour=buttonColours[randomNumber];
-                gamePattern.push(randomChosenColour);
-                $("#"+randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 playSound(randomChosenColour);
+                $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
+                gamePattern.push(randomChosenColour);
+                
+                sleep(200);
+    
+        
+   
             
 }
 function userHandler(event){
@@ -42,12 +50,14 @@ setTimeout(
         },100);
 }
 $(".base-btn").click(userHandler);
-$(document).on("keypress",function(){
+$("#start").click(function(){
 if(lvl=-1){
+    $("#start").fadeOut();
     lvl=1;
     $("h1").text("Level 1");
-   
-    nextSequence();
+    setTimeout(
+        nextSequence(),500);
+
 }
 });
 function checkAnswer(){
@@ -58,16 +68,15 @@ function checkAnswer(){
         lvl++;
         userClickedPattern=[];
         gamePattern=[];
-        nextSequence();
+       
         $("h1").text("Level "+lvl);
        
-       setTimeout(
-        function(){
+      i=0;
             myLoop(lvl-1,nextSequence,100);
-            },2000);
+            
        
+    }
         
-        }
         else
         {
             
@@ -82,14 +91,21 @@ function myLoop(max,func,interval)
     if(i<max)
     {
         i++;
-        myLoop;
+        myLoop(max,func,interval);
     }
 }
 function wrong()
 {
-    lvl=1;
-    $("h1").text("Level 1");
-    nextSequence();
     playSound("wrong");
+    alert("sorry but its wrong,restrting");
+    location.reload();
     
 }
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
