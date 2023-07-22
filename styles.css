@@ -12,7 +12,8 @@ body {
 
 #start {
   font-family: 'Lilita One', cursive;
-  
+  margin: 20px;
+  margin-top: 0px;
   color: #dffdc5;
   background-color: #4a5d3a;
 }
